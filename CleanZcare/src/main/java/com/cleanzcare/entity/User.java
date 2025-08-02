@@ -19,5 +19,5 @@ public class User {
     private String email;
 
     private String password;
-    private String role; // Example: USER, ADMIN
+    private String role; 
 }
