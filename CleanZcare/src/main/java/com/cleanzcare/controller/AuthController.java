@@ -6,6 +6,8 @@ import com.cleanzcare.entity.User;
 import com.cleanzcare.repository.UserRepository;
 import com.cleanzcare.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
-    private final AuthenticationManager authManager;
-    private final UserRepository userRepo;
-    private final PasswordEncoder encoder;
-    private final JwtUtil jwtUtil;
+    @Autowired
+    private  AuthenticationManager authManager;
+    @Autowired
+    private  UserRepository userRepo;
+    @Autowired
+    private  PasswordEncoder encoder;
+    @Autowired
+    private  JwtUtil jwtUtil;
 
     @PostMapping("/signup")
     public String register(@RequestBody User user) {
@@ -30,6 +35,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest request) {
+    	System.out.println(request.getEmail()+" "+ request.getPassword());
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var user = userRepo.findByEmail(request.getEmail())

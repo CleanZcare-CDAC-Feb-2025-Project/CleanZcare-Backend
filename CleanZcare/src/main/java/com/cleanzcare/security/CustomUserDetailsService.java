@@ -3,6 +3,8 @@ package com.cleanzcare.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
+	@Autowired
     private final UserRepository userRepository;
 
     @Override
@@ -26,5 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")) // or fetch from DB
         );
+//    	return null;
     }
 }
