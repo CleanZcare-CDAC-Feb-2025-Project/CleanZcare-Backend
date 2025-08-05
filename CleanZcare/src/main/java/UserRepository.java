@@ -1,5 +1,3 @@
-package com.cleanzcare.repository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cleanzcare.entity.User;
