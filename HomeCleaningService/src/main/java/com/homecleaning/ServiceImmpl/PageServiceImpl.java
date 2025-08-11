@@ -51,4 +51,9 @@ public class PageServiceImpl implements PageService {
 	public boolean existPage(String page) {
 		return pageRepository.existsById(Long.parseLong(page));
 	}
+
+	@Override
+	public Page getPageByName(String name) {
+		return pageRepository.findByTitle(name);
+	}
 }

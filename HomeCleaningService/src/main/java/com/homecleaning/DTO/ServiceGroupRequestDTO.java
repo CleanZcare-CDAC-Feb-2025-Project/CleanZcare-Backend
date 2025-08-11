@@ -4,9 +4,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class ServiceGroupRequestDTO {
@@ -14,5 +18,6 @@ public class ServiceGroupRequestDTO {
     private int displayOrder;
     private MultipartFile icon;
 
-    // Getters and Setters
+    // List of existing service IDs to associate
+    private List<Long> serviceIds;
 }

@@ -38,6 +38,14 @@ public class ServiceGroupController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ServiceGroup>> getServiceGroupByCategory(@PathVariable String category) {
+        List<ServiceGroup> groups = serviceGroupService.getServiceGroupByCategory(category);
+        if (groups.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(groups);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ServiceGroup> updateServiceGroup(@PathVariable Long id, @RequestBody ServiceGroup serviceGroup) {

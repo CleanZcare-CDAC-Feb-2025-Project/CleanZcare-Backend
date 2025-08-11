@@ -3,6 +3,7 @@ package com.homecleaning.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -42,6 +45,15 @@ public class Category {
     private List<ServiceGroup> group = new ArrayList();
 
     @OneToMany(mappedBy = "category")
-    @JsonManagedReference
+    @JsonBackReference(value = "resourceFromCategory")
     private List<ServiceModalResource> resources;
+    
+    
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<SlideData> slideDataList = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference(value = "category-slideData")
+
+    private List<SlideData> slideDataList = new ArrayList<>();
+
 }

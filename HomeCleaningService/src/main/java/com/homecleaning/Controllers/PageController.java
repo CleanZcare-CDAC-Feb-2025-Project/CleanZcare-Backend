@@ -14,7 +14,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class PageController {
 
-	
     @Autowired
     private PageService pageService;
 
@@ -23,9 +22,13 @@ public class PageController {
         return ResponseEntity.ok(pageService.createPage(page));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{name}")
+    public ResponseEntity<Page> getPageByName(@PathVariable String name) {
+        return ResponseEntity.ok(pageService.getPageByName(name));
+    }
+    @GetMapping("/id/{id}")
     public ResponseEntity<Page> getPageById(@PathVariable Long id) {
-        return ResponseEntity.ok(pageService.getPageById(id));
+    	return ResponseEntity.ok(pageService.getPageById(id));
     }
 
     @GetMapping

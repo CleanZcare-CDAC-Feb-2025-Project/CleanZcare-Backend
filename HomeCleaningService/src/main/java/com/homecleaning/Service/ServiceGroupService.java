@@ -13,4 +13,5 @@ public interface ServiceGroupService {
     ServiceGroup updateServiceGroup(Long id, ServiceGroup serviceGroup);
     void deleteServiceGroup(Long id);
 	ServiceGroup createServiceGroup(ServiceGroupRequestDTO dto);
+	List<ServiceGroup> getServiceGroupByCategory(String category);
 }

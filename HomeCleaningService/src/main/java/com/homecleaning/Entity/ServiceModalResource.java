@@ -2,13 +2,12 @@ package com.homecleaning.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -47,7 +46,7 @@ public class ServiceModalResource {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference(value = "resourceFromCategory")  // ✅ Added this
+    @JsonManagedReference(value = "resourceFromCategory")
     private Category category;
 
     @ManyToMany(mappedBy = "modalResource")

@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -22,37 +19,34 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class ServiceModalTable {
+public class ServiceTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
+    private double price;
+    private String duration;
     private String description;
-    private String tag;
 
-    // ServiceModalTable --> ShowCategory (OneToMany)
-    @OneToMany(mappedBy = "serviceModalTable", cascade = CascadeType.ALL)
-    @JsonBackReference(value = "serviceModalRef")
-    private List<ShowCategory> showCategories = new ArrayList<>();
-
+//    @ManyToOne
+//    @JoinColumn(name = "group_id")
+//    private ServiceGroup group;
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "parent_id")
+    private ServiceTable parentService;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "service_modal_table_resources",
-        joinColumns = @JoinColumn(name = "modal_table_id"),
-        inverseJoinColumns = @JoinColumn(name = "resource_id")
-    )
-    private List<ServiceModalResource> modalResource = new ArrayList<>();
+    @OneToMany(mappedBy = "parentService", cascade = CascadeType.ALL)
+    private List<ServiceTable> subServices = new ArrayList<>();
+    @ManyToMany(mappedBy = "services")
+    @JsonBackReference(value = "serviceGroupRef")
+    private List<ServiceGroup> serviceGroups = new ArrayList<>();
 }
+

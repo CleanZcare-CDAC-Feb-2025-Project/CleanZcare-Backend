@@ -16,4 +16,6 @@ public interface PageService {
 	void deletePage(Long id);
 
 	boolean existPage(String page);
+
+	Page getPageByName(String name);
 }

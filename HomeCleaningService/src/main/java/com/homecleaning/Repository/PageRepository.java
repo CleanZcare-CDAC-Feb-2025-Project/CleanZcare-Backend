@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PageRepository extends JpaRepository<Page, Long> {
 
-	boolean findByTitle(String page);
+	Page findByTitle(String page);
 }
