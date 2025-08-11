@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -41,10 +42,14 @@ public class ServiceTable {
 //    private ServiceGroup group;
     @ManyToOne
     @JoinColumn(name = "parent_id")
+    @JsonBackReference(value = "serviceHierarchy")
     private ServiceTable parentService;
-
     @OneToMany(mappedBy = "parentService", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "serviceHierarchy")
     private List<ServiceTable> subServices = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "parentService", cascade = CascadeType.ALL)
+//    private List<ServiceTable> subServices = new ArrayList<>();
     @ManyToMany(mappedBy = "services")
     @JsonBackReference(value = "serviceGroupRef")
     private List<ServiceGroup> serviceGroups = new ArrayList<>();
